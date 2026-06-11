@@ -1,0 +1,203 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+
+    background-image:url("874.png");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* LOGIN */
+#loginBox{
+
+    width:90%;
+    max-width:650px;
+
+    padding:40px;
+
+    text-align:center;
+
+    background:rgba(255,255,255,0.95);
+
+    border-radius:25px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,0.35);
+}
+
+/* TRANG TÌM KIẾM */
+#mainBox{
+
+    width:95%;
+    max-width:1200px;
+
+    padding:40px;
+
+    text-align:center;
+
+    background:rgba(255,255,255,0.95);
+
+    border-radius:25px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,0.35);
+
+    margin:20px auto;
+}
+
+/* TIÊU ĐỀ */
+h1{
+    font-size:42px;
+    color:#222;
+    margin-bottom:25px;
+}
+
+h2{
+    font-size:36px;
+    color:#222;
+    margin-bottom:20px;
+}
+
+h3{
+    font-size:28px;
+    color:#222;
+    margin-top:25px;
+}
+
+/* Ô nhập */
+input{
+
+    width:100%;
+
+    max-width:500px;
+
+    padding:18px;
+
+    font-size:24px;
+
+    border:2px solid #ddd;
+
+    border-radius:15px;
+
+    margin-top:15px;
+}
+
+/* Nút */
+button{
+
+    width:100%;
+
+    max-width:500px;
+
+    padding:18px;
+
+    margin-top:20px;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:#0066cc;
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+button:hover{
+
+    background:#0052a3;
+
+    transform:scale(1.02);
+}
+
+/* Khu tìm kiếm */
+#searchArea{
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    margin-top:20px;
+}
+
+/* QR */
+#qrImage{
+
+    display:none;
+
+    margin:30px auto;
+
+    width:100%;
+    max-width:450px;
+
+    background:white;
+
+    padding:12px;
+
+    border-radius:15px;
+
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Tiêu đề QR */
+#cardTitle{
+
+    margin-top:25px;
+
+    font-size:30px;
+
+    font-weight:bold;
+}
+
+/* Lỗi */
+#error{
+
+    color:red;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    margin-top:15px;
+}
+
+/* Mobile */
+@media(max-width:768px){
+
+    h1{
+        font-size:32px;
+    }
+
+    h2{
+        font-size:28px;
+    }
+
+    input,
+    button{
+
+        font-size:20px;
+        padding:15px;
+    }
+
+    #qrImage{
+        max-width:300px;
+    }
+}

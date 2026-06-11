@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Card System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Đăng nhập -->
+    <div id="loginBox">
+
+      <h1>関西SC</h1>
+    <h2>🏢CHECK MÃ QR </h2>
+<p class="subtitle">Employee Attendance System</p>
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Nhập mật khẩu">
+
+        <button onclick="login()">
+            Đăng nhập
+        </button>
+
+        <p id="error"></p>
+
+    </div>
+
+    <!-- Nội dung chính -->
+   <div id="mainBox" style="display:none;">
+
+    <h2>TÌM KIẾM THẺ QR</h2>
+
+    <div id="searchArea">
+
+        <input
+            type="number"
+            id="cardNumber"
+            min="1"
+            max="70"
+            placeholder="Nhập số thẻ">
+
+        <button onclick="showCard()">
+            TÌM KIẾM
+        </button>
+
+    </div>
+
+    <h3 id="cardTitle"></h3>
+
+    <img id="qrImage" src="" alt="QR Code">
+
+</div>
+
+        <h3 id="cardTitle"></h3>
+
+        <img id="qrImage" src="" alt="QR Code">
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
