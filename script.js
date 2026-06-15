@@ -1,155 +1,280 @@
-// // Mật khẩu đăng nhập
-// const PASSWORD = "kansaisc";
+const PASSWORD = "sc";
 
-// // Đăng nhập
-// function login(){
+// ================= DATA =================
+const employees = [
+    { name: "BUI DINH TOI", qr: "qr/1.jpg" },
+    { name: "LE DUC HUY", qr: "qr/2.jpg" },
+    { name: "DO CONG TUYEN", qr: "qr/3.jpg" },
+    { name: "NGUYEN THI TUYET MAI", qr: "qr/4.jpg" },
+    { name: "PHAM VAN TRUONG", qr: "qr/5.jpg" },
 
-//     let pass = document.getElementById("password").value;
+    { name: "", qr: "qr/6.jpg" },
+    { name: "", qr: "qr/7.jpg" },
+    { name: "", qr: "qr/8.jpg" },
+    { name: "", qr: "qr/9.jpg" },
+    { name: "", qr: "qr/10.jpg" },
 
-//     if(pass === PASSWORD){
+    { name: "", qr: "qr/11.jpg" },
+    { name: "", qr: "qr/12.jpg" },
+    { name: "", qr: "qr/13.jpg" },
+    { name: "", qr: "qr/14.jpg" },
+    { name: "", qr: "qr/15.jpg" },
 
-//         document.getElementById("loginBox").style.display = "none";
-//         document.getElementById("mainBox").style.display = "block";
+    { name: "", qr: "qr/16.jpg" },
+    { name: "", qr: "qr/17.jpg" },
+    { name: "", qr: "qr/18.jpg" },
+    { name: "", qr: "qr/19.jpg" },
+    { name: "", qr: "qr/20.jpg" },
 
-//     }else{
+    { name: "", qr: "qr/21.jpg" },
+    { name: "", qr: "qr/22.jpg" },
+    { name: "", qr: "qr/23.jpg" },
+    { name: "", qr: "qr/24.jpg" },
+    { name: "", qr: "qr/25.jpg" },
 
-//         document.getElementById("error").innerText =
-//             "Sai mật khẩu!";
-//     }
-// }
+    { name: "", qr: "qr/26.jpg" },
+    { name: "", qr: "qr/27.jpg" },
+    { name: "", qr: "qr/28.jpg" },
+    { name: "", qr: "qr/29.jpg" },
+    { name: "", qr: "qr/30.jpg" },
 
-// // Hiển thị QR
-// function showCard(){
+    { name: "", qr: "qr/31.jpg" },
+    { name: "", qr: "qr/32.jpg" },
+    { name: "", qr: "qr/33.jpg" },
+    { name: "", qr: "qr/34.jpg" },
+    { name: "", qr: "qr/35.jpg" },
 
-//     let card = document.getElementById("cardNumber").value;
+    { name: "", qr: "qr/36.jpg" },
+    { name: "", qr: "qr/37.jpg" },
+    { name: "", qr: "qr/38.jpg" },
+    { name: "", qr: "qr/39.jpg" },
+    { name: "", qr: "qr/40.jpg" },
 
-//     if(card === ""){
+    { name: "", qr: "qr/41.jpg" },
+    { name: "", qr: "qr/42.jpg" },
+    { name: "", qr: "qr/43.jpg" },
+    { name: "", qr: "qr/44.jpg" },
+    { name: "", qr: "qr/45.jpg" },
 
-//         alert("Vui lòng nhập số thẻ");
-//         return;
-//     }
+    { name: "", qr: "qr/46.jpg" },
+    { name: "", qr: "qr/47.jpg" },
+    { name: "", qr: "qr/48.jpg" },
+    { name: "", qr: "qr/49.jpg" },
+    { name: "", qr: "qr/50.jpg" },
 
-//     if(card < 1 || card > 70){
+    { name: "", qr: "qr/51.jpg" },
+    { name: "", qr: "qr/52.jpg" },
+    { name: "", qr: "qr/53.jpg" },
+    { name: "", qr: "qr/54.jpg" },
+    { name: "", qr: "qr/55.jpg" },
 
-//         alert("Số thẻ phải từ 1 đến 70");
-//         return;
-//     }
+    { name: "", qr: "qr/56.jpg" },
+    { name: "", qr: "qr/57.jpg" },
+    { name: "", qr: "qr/58.jpg" },
+    { name: "", qr: "qr/59.jpg" },
+    { name: "", qr: "qr/60.jpg" },
 
-//     document.getElementById("cardTitle").innerText =
-//         "THẺ SỐ " + card;
+    { name: "", qr: "qr/61.jpg" },
+    { name: "", qr: "qr/62.jpg" },
+    { name: "", qr: "qr/63.jpg" },
+    { name: "", qr: "qr/64.jpg" },
+    { name: "", qr: "qr/65.jpg" },
 
-//     document.getElementById("qrImage").src =
-//         "qr/" + card + ".jpg";
-// }
+    { name: "", qr: "qr/66.jpg" },
+    { name: "", qr: "qr/67.jpg" },
+    { name: "", qr: "qr/68.jpg" },
+    { name: "", qr: "qr/69.jpg" },
+    { name: "", qr: "qr/70.jpg" },
 
-// // Nhấn Enter để tìm
-// document.addEventListener("DOMContentLoaded", function(){
+    { name: "", qr: "qr/71.jpg" },
+    { name: "", qr: "qr/72.jpg" },
+    { name: "", qr: "qr/73.jpg" },
+    { name: "", qr: "qr/74.jpg" },
+    { name: "", qr: "qr/75.jpg" },
 
-//     document.getElementById("cardNumber")
-//     .addEventListener("keypress", function(event){
+    { name: "", qr: "qr/76.jpg" },
+    { name: "", qr: "qr/77.jpg" },
+    { name: "", qr: "qr/78.jpg" },
+    { name: "", qr: "qr/79.jpg" },
+    { name: "", qr: "qr/80.jpg" },
 
-//         if(event.key === "Enter"){
+    { name: "", qr: "qr/81.jpg" },
+    { name: "", qr: "qr/82.jpg" },
+    { name: "", qr: "qr/83.jpg" },
+    { name: "", qr: "qr/84.jpg" },
+    { name: "", qr: "qr/85.jpg" },
 
-//             showCard();
-//         }
+    { name: "", qr: "qr/86.jpg" },
+    { name: "", qr: "qr/87.jpg" },
+    { name: "", qr: "qr/88.jpg" },
+    { name: "", qr: "qr/89.jpg" },
+    { name: "", qr: "qr/90.jpg" },
 
-//     });
+    { name: "", qr: "qr/91.jpg" },
+    { name: "", qr: "qr/92.jpg" },
+    { name: "", qr: "qr/93.jpg" },
+    { name: "", qr: "qr/94.jpg" },
+    { name: "", qr: "qr/95.jpg" },
 
-// });
+    { name: "", qr: "qr/96.jpg" },
+    { name: "", qr: "qr/97.jpg" },
+    { name: "", qr: "qr/98.jpg" },
+    { name: "", qr: "qr/99.jpg" },
+    { name: "", qr: "qr/100.jpg" },
 
+    { name: "", qr: "qr/101.jpg" },
+    { name: "", qr: "qr/102.jpg" },
+    { name: "", qr: "qr/103.jpg" },
+    { name: "", qr: "qr/104.jpg" },
+    { name: "", qr: "qr/105.jpg" },
 
-// ==========================
-// CẤU HÌNH
-// ==========================
-
-const PASSWORD = "kansaisc";
-
-
-// ==========================
-// ĐĂNG NHẬP
-// ==========================
-
+    { name: "", qr: "qr/106.jpg" },
+    { name: "", qr: "qr/107.jpg" },
+    { name: "", qr: "qr/108.jpg" },
+    { name: "", qr: "qr/109.jpg" },
+    { name: "", qr: "qr/110.jpg" }
+];
+// ================= LOGIN =================
 function login() {
 
-    const pass = document.getElementById("password").value;
+    const pass = document.getElementById("password").value.trim();
 
     if (pass === PASSWORD) {
 
-        document.getElementById("loginBox").style.display = "none";
-        document.getElementById("mainBox").style.display = "block";
+        document.getElementById("loginBox").classList.add("hidden");
+        document.getElementById("mainBox").classList.remove("hidden");
 
-        // Đổi bố cục sau khi đăng nhập
-        document.body.style.alignItems = "flex-start";
-        document.body.style.paddingTop = "40px";
+        resetUI();
 
-        document.getElementById("error").innerText = "";
+        document.body.classList.remove("items-center");
+        document.body.classList.add("items-start");
+        document.body.style.background = "#e7edd4";
+
+        toast("Đăng nhập thành công!", "🎉");
 
     } else {
-
-        document.getElementById("error").innerText =
-            "Sai mật khẩu!";
-
+        toast("Sai mật khẩu!", "❌");
     }
 }
 
+// ================= SEARCH =================
+function searchEmployee() {
 
-// ==========================
-// HIỂN THỊ QR
-// ==========================
+    const key = document.getElementById("searchInput").value.trim().toLowerCase();
+    const box = document.getElementById("employeeList");
 
-function showCard() {
-
-    const card = document.getElementById("cardNumber").value.trim();
-
-    if (card === "") {
-
-        alert("Vui lòng nhập số thẻ");
+    if (key === "") {
+        box.innerHTML = "";
         return;
     }
 
-    const cardNumber = parseInt(card);
+    const result = employees.filter(e =>
+        e.name.toLowerCase().includes(key)
+    );
 
-    if (cardNumber < 1 || cardNumber > 70) {
-
-        alert("Số thẻ phải từ 1 đến 70");
+    if (result.length === 0) {
+        box.innerHTML = `<p class="text-red-500 font-bold text-center">Không tìm thấy</p>`;
         return;
     }
 
-    document.getElementById("cardTitle").innerText =
-        "THẺ SỐ " + cardNumber;
+    let html = "";
 
-    document.getElementById("qrImage").src =
-        "qr/" + cardNumber + ".jpg";
+    result.forEach(e => {
+        html += `
+        <div onclick="showQR('${e.name}','${e.qr}')"
+             class="p-3 bg-green-500 text-white rounded-xl cursor-pointer hover:bg-green-700 transition">
+            ${e.name}
+        </div>`;
+    });
 
-    document.getElementById("qrImage").style.display =
-        "block";
+    box.innerHTML = html;
 }
 
+// ================= SHOW QR =================
+function showQR(name, qr) {
 
-// ==========================
-// SỰ KIỆN BÀN PHÍM
-// ==========================
+    document.getElementById("employeeName").innerText = name;
 
-document.addEventListener("DOMContentLoaded", function () {
+    const img = document.getElementById("qrImage");
+    img.src = qr;
+    img.classList.remove("hidden");
 
-    // Enter ở ô mật khẩu
-    document.getElementById("password")
-        .addEventListener("keypress", function (event) {
+    // ẨN SEARCH + LIST
+    document.getElementById("searchInput").style.display = "none";
+    document.getElementById("employeeList").style.display = "none";
 
-            if (event.key === "Enter") {
-                login();
-            }
+    // HIỆN NÚT QUAY LẠI
+    document.getElementById("backBtn").classList.remove("hidden");
 
-        });
+    toast("Đang hiển thị QR", "📌");
+}
 
-    // Enter ở ô số thẻ
-    document.getElementById("cardNumber")
-        .addEventListener("keypress", function (event) {
+// ================= QUAY LẠI =================
+function backToSearch() {
 
-            if (event.key === "Enter") {
-                showCard();
-            }
+    resetUI();
 
-        });
+    toast("Quay lại tìm kiếm", "🔙");
+}
 
-});
+// ================= RESET UI =================
+function resetUI() {
+
+    // reset search
+    const input = document.getElementById("searchInput");
+    const list = document.getElementById("employeeList");
+
+    input.value = "";
+
+    input.style.display = "block";
+    list.style.display = "block";
+    list.innerHTML = "";
+
+    // reset QR
+    document.getElementById("qrImage").classList.add("hidden");
+    document.getElementById("employeeName").innerText = "";
+
+    // ẩn nút quay lại
+    document.getElementById("backBtn").classList.add("hidden");
+}
+
+// ================= TOAST =================
+function toast(msg, icon = "⭐") {
+
+    const box = document.getElementById("toastBox");
+    const text = document.getElementById("toastMessage");
+    const ico = document.getElementById("toastIcon");
+
+    text.innerText = msg;
+    ico.innerText = icon;
+
+    box.style.opacity = "1";
+    box.style.transform = "translateY(0)";
+
+    setTimeout(() => {
+        box.style.opacity = "0";
+        box.style.transform = "translateY(-100px)";
+    }, 2000);
+}
+
+// ================= PASSWORD TOGGLE =================
+function togglePassword() {
+
+    const p = document.getElementById("password");
+    p.type = (p.type === "password") ? "text" : "password";
+}
+
+// ================= IMAGE FALLBACK =================
+let attempt = 0;
+
+function handleImageError(img) {
+
+    attempt++;
+
+    if (attempt === 1) {
+        img.src = "anh37.png";
+    } else {
+        img.style.display = "none";
+        document.getElementById("svgFallback").classList.remove("hidden");
+    }
+}
