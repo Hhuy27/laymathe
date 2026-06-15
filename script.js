@@ -134,7 +134,82 @@ const employees = [
     { name: "", qr: "qr/109.jpg" },
     { name: "", qr: "qr/110.jpg" }
 ];
-// ================= LOGIN =================
+function login() {
+
+    const pass = document.getElementById("password").value.trim();
+
+    if (pass === PASSWORD) {
+
+        document.getElementById("loginBox").classList.add("hidden");
+        document.getElementById("mainBox").classList.remove("hidden");
+
+        resetUI();
+
+        document.body.className =
+        "bg-[#e7edd4] min-h-screen flex justify-center items-start p-4";
+
+        toast("Đăng nhập thành công!", "🎉");
+
+    } else {
+        toast("Sai mật khẩu!", "❌");
+    }
+}
+
+// ================= SEARCH =================
+function searchEmployee() {
+
+    const key = document.getElementById("searchInput").value.trim().toLowerCase();
+    const box = document.getElementById("employeeList");
+
+    if (key === "") {
+        box.innerHTML = "";
+        return;
+    }
+
+    const result = employees.filter(e =>
+        e.name && e.name.toLowerCase().includes(key)
+    );
+
+    if (result.length === 0) {
+        box.innerHTML = `<p class="text-red-500 font-bold text-center">Không tìm thấy</p>`;
+        return;
+    }
+
+    box.innerHTML = result.map(e => `
+        <div onclick="showQR('${e.name}','${e.qr}')"
+             class="p-3 bg-green-500 text-white rounded-xl cursor-pointer hover:bg-green-700 transition">
+            ${e.name}
+        </div>
+    `).join("");
+}
+
+// ================= SHOW QR =================
+function showQR(name, qr) {
+
+    document.getElementById("employeeName").innerText = name;
+
+    const img = document.getElementById("qrImage");
+
+    img.src = qr;
+    img.classList.remove("hidden");
+
+    document.getElementById("searchInput").style.display = "none";
+    document.getElementById("employeeList").style.display = "none";
+    document.getElementById("backBtn").classList.remove("hidden");
+
+    resetZoom();
+
+    toast("Hiển thị QR", "📌");
+}
+
+// ================= BACK =================
+function backToSearch() {
+
+    resetUI();
+    toast("Quay lại tìm kiếm", "🔙");
+}
+
+// ================= RESET UI =================
 function resetUI() {
 
     document.getElementById("searchInput").value = "";
