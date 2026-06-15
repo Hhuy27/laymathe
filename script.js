@@ -1,4 +1,4 @@
-const PASSWORD = "sc";
+const PASSWORD = "ksc";
 
 // ================= DATA =================
 const employees = [
