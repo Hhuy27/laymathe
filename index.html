@@ -2,65 +2,105 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Card System</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Đăng Nhập - Đã Đến Xưởng!</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+    
 </head>
-<body>
+<body class="flex justify-center items-center min-h-screen p-0 sm:p-4 selection:bg-yellow-200">
 
-    <!-- Đăng nhập -->
-    <div id="loginBox">
 
-      <h1>関西SC</h1>
-    <h2>🏢CHECK MÃ QR </h2>
-<p class="subtitle">Employee Attendance System</p>
+    <div class="relative w-full h-screen sm:h-[800px] sm:max-w-md bg-[#e7edd4] sm:rounded-[40px] border-0 sm:border-[12px] sm:border-[#3e2713] overflow-hidden shadow-none sm:shadow-2xl flex flex-col justify-between">
+        
 
-        <input
-            type="password"
-            id="password"
-            placeholder="Nhập mật khẩu">
+        <div class="w-full flex-1 bg-[#b1cc81] relative overflow-hidden shadow-inner min-h-[300px]">
+            <!-- Supporting both image filenames just in case -->
+            <img id="sceneryImage" src="anh37.png" alt="Xưởng Phân Loại Thuốc" class="w-full h-full object-cover absolute inset-0" onerror="handleImageError(this)">
+            
+          
+            <div id="svgFallback" class="hidden w-full h-full p-6 flex-col items-center justify-center text-center text-[#3d5c24] absolute inset-0 bg-[#b1cc81]">
+                <!-- Mini cute lab flask SVG -->
+                <svg class="w-20 h-20 text-[#4a732d] mb-3 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v11.896a3.75 3.75 0 107.5 0V3.104M9.75 3.104c-.512 0-.919.458-.813.958a12.015 12.015 0 001.313 3.438m0-4.396A12.015 12.015 0 0113.5 1.5M9.75 3.104H14.25M12 14.25h.008v.008H12v-.008z" />
+                </svg>
+                <p class="text-lg font-bold">関西SC - TRẠM PHÂN LOẠI THUỐC</p>
+                <p class="text-xs opacity-80 mt-1">Osaka Logistics Center</p>
+            </div>
+        </div>
 
-        <button onclick="login()">
-            Đăng nhập
-        </button>
+        <!-- ================= LOGIN SCREEN PANEL ================= -->
+        <div class="p-4 z-20 pb-6 sm:pb-4">
+            <div id="loginBox" class="bg-[#fbf8f0] border-4 border-[#ddcca3] rounded-[32px] p-5 panel-shadow space-y-4 relative transition-all duration-300">
+                
+                <!-- Welcome Title decorated with leaves & heart divider like in 37.png -->
+                <div class="text-center space-y-2">
+                    <div class="flex items-center justify-center space-x-2 text-[#4d7a34] font-extrabold text-xl tracking-wide select-none">
+                        <!-- Left Leaf SVG -->
+                        <svg class="w-6 h-6 transform -rotate-12" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17 8C8 10 5.9 16.17 3.82 20C5.18 20 18 19.5 21 11C21 8 19 8 17 8z" opacity=".2"/>
+                            <path d="M2 22C2.44 20 4.15 14.4 8.7 10.3C13.5 6 18.2 4 22 4C22 7.8 20 12.5 15.7 17.3C11.6 21.85 6 23.56 4 24L2 22z" fill="#78a85a"/>
+                        </svg>
+                        <span>CHÀO MỪNG TRỞ LẠI!</span>
+                        <!-- Right Leaf SVG -->
+                        <svg class="w-6 h-6 transform scale-x-[-1] -rotate-12" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17 8C8 10 5.9 16.17 3.82 20C5.18 20 18 19.5 21 11C21 8 19 8 17 8z" opacity=".2"/>
+                            <path d="M2 22C2.44 20 4.15 14.4 8.7 10.3C13.5 6 18.2 4 22 4C22 7.8 20 12.5 15.7 17.3C11.6 21.85 6 23.56 4 24L2 22z" fill="#78a85a"/>
+                        </svg>
+                    </div>
 
-        <p id="error"></p>
+                    <!-- Heart & Dotted Divider Line -->
+                    <div class="flex items-center justify-center">
+                        <div class="w-16 h-[2px] bg-gradient-to-r from-transparent to-[#d2c29d]"></div>
+                        <span class="mx-2 text-red-500 text-xs animate-pulse">❤️</span>
+                        <div class="w-16 h-[2px] bg-gradient-to-l from-transparent to-[#d2c29d]"></div>
+                    </div>
+                </div>
+
+                <!-- Input section and padlock layout -->
+                <div class="space-y-3">
+                    <div class="relative">
+                        <!-- Lock Icon -->
+                        <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                            <svg class="w-5 h-5 text-[#8c745c]" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                            </svg>
+                        </span>
+                        
+                        <input type="password" id="password" placeholder="Nhập mật khẩu" 
+                               class="w-full pl-12 pr-12 py-3.5 bg-[#fbf8f0] border-2 border-[#e6dfcd] rounded-2xl text-[#4d3319] font-semibold placeholder-[#bcae91] focus:outline-none focus:border-[#7ba85a] focus:bg-white transition-all text-base">
+                        
+                        <!-- Toggle Password Eye -->
+                        <button type="button" onclick="togglePassword()" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#8c745c] hover:text-[#4d3319] focus:outline-none">
+                            <svg id="eyeIcon" class="w-5.5 h-5.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Green Button like the image -->
+                <button onclick="login()" class="w-full bg-[#78a85a] border-b-4 border-[#4d7a34] text-white font-extrabold text-lg py-3.5 rounded-2xl hover:bg-[#86b567] transition-all duration-150 flex items-center justify-center space-x-2 btn-shadow">
+                    <span>ĐĂNG NHẬP</span>
+                    <svg class="w-5 h-5 stroke-current stroke-[3]" fill="none" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
 
     </div>
 
-    <!-- Nội dung chính -->
-   <div id="mainBox" style="display:none;">
-
-    <h2>TÌM KIẾM THẺ QR</h2>
-
-    <div id="searchArea">
-
-        <input
-            type="number"
-            id="cardNumber"
-            min="1"
-            max="70"
-            placeholder="Nhập số thẻ">
-
-        <button onclick="showCard()">
-            TÌM KIẾM
-        </button>
-
+    <div id="toastBox" class="fixed top-5 left-1/2 transform -translate-x-1/2 bg-[#3e2713] border-4 border-[#bf814b] text-[#fff200] px-6 py-3 rounded-2xl shadow-2xl z-50 transition-all duration-300 ease-out translate-y-[-100px] opacity-0 pointer-events-none flex items-center space-x-2">
+        <span id="toastIcon" class="text-xl">⭐</span>
+        <span id="toastMessage" class="font-bold text-sm text-white"></span>
     </div>
 
-    <h3 id="cardTitle"></h3>
-
-    <img id="qrImage" src="" alt="QR Code">
-
-</div>
-
-        <h3 id="cardTitle"></h3>
-
-        <img id="qrImage" src="" alt="QR Code">
-
-    </div>
-
-    <script src="script.js"></script>
-
+  
 </body>
 </html>
