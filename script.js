@@ -135,107 +135,49 @@ const employees = [
     { name: "", qr: "qr/110.jpg" }
 ];
 // ================= LOGIN =================
-function login() {
-
-    const pass = document.getElementById("password").value.trim();
-
-    if (pass === PASSWORD) {
-
-        document.getElementById("loginBox").classList.add("hidden");
-        document.getElementById("mainBox").classList.remove("hidden");
-
-        resetUI();
-
-        document.body.classList.remove("items-center");
-        document.body.classList.add("items-start");
-        document.body.style.background = "#e7edd4";
-
-        toast("Đăng nhập thành công!", "🎉");
-
-    } else {
-        toast("Sai mật khẩu!", "❌");
-    }
-}
-
-// ================= SEARCH =================
-function searchEmployee() {
-
-    const key = document.getElementById("searchInput").value.trim().toLowerCase();
-    const box = document.getElementById("employeeList");
-
-    if (key === "") {
-        box.innerHTML = "";
-        return;
-    }
-
-    const result = employees.filter(e =>
-        e.name.toLowerCase().includes(key)
-    );
-
-    if (result.length === 0) {
-        box.innerHTML = `<p class="text-red-500 font-bold text-center">Không tìm thấy</p>`;
-        return;
-    }
-
-    let html = "";
-
-    result.forEach(e => {
-        html += `
-        <div onclick="showQR('${e.name}','${e.qr}')"
-             class="p-3 bg-green-500 text-white rounded-xl cursor-pointer hover:bg-green-700 transition">
-            ${e.name}
-        </div>`;
-    });
-
-    box.innerHTML = html;
-}
-
-// ================= SHOW QR =================
-function showQR(name, qr) {
-
-    document.getElementById("employeeName").innerText = name;
-
-    const img = document.getElementById("qrImage");
-    img.src = qr;
-    img.classList.remove("hidden");
-
-    // ẨN SEARCH + LIST
-    document.getElementById("searchInput").style.display = "none";
-    document.getElementById("employeeList").style.display = "none";
-
-    // HIỆN NÚT QUAY LẠI
-    document.getElementById("backBtn").classList.remove("hidden");
-
-    toast("Đang hiển thị QR", "📌");
-}
-
-// ================= QUAY LẠI =================
-function backToSearch() {
-
-    resetUI();
-
-    toast("Quay lại tìm kiếm", "🔙");
-}
-
-// ================= RESET UI =================
 function resetUI() {
 
-    // reset search
-    const input = document.getElementById("searchInput");
-    const list = document.getElementById("employeeList");
+    document.getElementById("searchInput").value = "";
 
-    input.value = "";
+    document.getElementById("searchInput").style.display = "block";
+    document.getElementById("employeeList").style.display = "block";
+    document.getElementById("employeeList").innerHTML = "";
 
-    input.style.display = "block";
-    list.style.display = "block";
-    list.innerHTML = "";
-
-    // reset QR
     document.getElementById("qrImage").classList.add("hidden");
     document.getElementById("employeeName").innerText = "";
 
-    // ẩn nút quay lại
     document.getElementById("backBtn").classList.add("hidden");
+
+    resetZoom();
+}
+
+// ================= ZOOM QR =================
+let zoomed = false;
+
+function zoomQR() {
+
+    const img = document.getElementById("qrImage");
+
+    if (!zoomed) {
+        img.style.transform = "scale(2)";
+        img.style.transition = "0.3s";
+        img.style.zIndex = "1000";
+        img.style.cursor = "zoom-out";
+        zoomed = true;
+    } else {
+        resetZoom();
+    }
+}
+
+function resetZoom() {
+
+    const img = document.getElementById("qrImage");
+
+    img.style.transform = "scale(1)";
+    img.style.zIndex = "1";
+    img.style.cursor = "zoom-in";
+
+    zoomed = false;
 }
 
 // ================= TOAST =================
@@ -264,7 +206,7 @@ function togglePassword() {
     p.type = (p.type === "password") ? "text" : "password";
 }
 
-// ================= IMAGE FALLBACK =================
+// ================= IMAGE ERROR =================
 let attempt = 0;
 
 function handleImageError(img) {
