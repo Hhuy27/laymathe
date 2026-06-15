@@ -1,256 +1,309 @@
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-body{
-    font-family: Arial, sans-serif;
+:root{
+    --primary-green:#78a85a;
+    --primary-green-dark:#5d8745;
+    --panel-bg:#faf7ef;
+    --text-dark:#4a3d2e;
+    --gold:#c8814a;
+}
 
-    background-image:url("874.png");
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    background-attachment:fixed;
+/* =========================
+   BODY
+========================= */
+body{
+    font-family:'Segoe UI',sans-serif;
+    background-color:#f1f0e8;
+    color:var(--text-dark);
 
     min-height:100vh;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
 }
+
 /* =========================
-   MOBILE
+   MOBILE CONTAINER
 ========================= */
-@media (max-width:768px){
+.mobile-container{
+    width:100%;
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
 
-    #loginBox,
-    #mainBox{
-
-        width:95%;
-
-        padding:20px;
-    }
-
-    h1{
-        font-size:28px;
-    }
-
-    h2{
-        font-size:24px;
-    }
-
-    h3{
-        font-size:20px;
-    }
-
-    input{
-
-        font-size:18px;
-
-        padding:14px;
-    }
-
-    button{
-
-        font-size:18px;
-
-        padding:14px;
-    }
-
-    #qrImage{
-
-        width:100%;
-
-        max-width:250px;
-    }
-
-    body{
-
-        background-position:center center;
-
-        background-size:cover;
-    }
-
+    padding-bottom:90px;
 }
-/* LOGIN */
-#loginBox{
 
-    width:90%;
-    max-width:650px;
+/* =========================
+   BANNER
+========================= */
+.banner-top{
+    width:100%;
+    overflow:hidden;
+}
 
-    padding:40px;
+.banner-top img{
+    width:100%;
+    display:block;
+}
 
+/* =========================
+   PAGE TITLE
+========================= */
+.page-title{
     text-align:center;
+    padding:15px 10px;
+}
 
-    background:rgba(255,255,255,0.95);
+.page-title h1{
+    font-size:2rem;
+    color:var(--gold);
+
+    margin-bottom:5px;
+}
+
+.page-title p{
+    font-size:0.95rem;
+    color:#666;
+}
+
+/* =========================
+   PANEL
+========================= */
+.panel{
+    background:var(--panel-bg);
+
+    margin:15px;
+
+    padding:25px;
 
     border-radius:25px;
 
-    box-shadow:0 10px 30px rgba(0,0,0,0.35);
+    box-shadow:
+    0 5px 15px rgba(0,0,0,.08),
+    0 10px 25px rgba(0,0,0,.12);
 }
 
-/* TRANG TÌM KIẾM */
-#mainBox{
-
-    width:95%;
-    max-width:1200px;
-
-    padding:40px;
-
+.panel-header{
     text-align:center;
-
-    background:rgba(255,255,255,0.95);
-
-    border-radius:25px;
-
-    box-shadow:0 10px 30px rgba(0,0,0,0.35);
-
-    margin:20px auto;
-}
-
-/* TIÊU ĐỀ */
-h1{
-    font-size:42px;
-    color:#222;
-    margin-bottom:25px;
-}
-
-h2{
-    font-size:36px;
-    color:#222;
     margin-bottom:20px;
 }
 
-h3{
-    font-size:28px;
-    color:#222;
-    margin-top:25px;
+.panel-header h2{
+    color:var(--primary-green);
+    font-size:1.5rem;
 }
 
-/* Ô nhập */
-input{
+/* =========================
+   INPUT
+========================= */
+.input-container{
+    margin-bottom:15px;
+}
 
+input{
     width:100%;
 
-    max-width:500px;
+    padding:15px 18px;
 
-    padding:18px;
-
-    font-size:24px;
-
-    border:2px solid #ddd;
+    border:1px solid #ddd;
 
     border-radius:15px;
 
-    margin-top:15px;
+    font-size:1rem;
+
+    outline:none;
+
+    transition:.3s;
+
+    background:white;
 }
 
-/* Nút */
-button{
+input:focus{
+    border-color:var(--primary-green);
 
+    box-shadow:
+    0 0 0 4px rgba(120,168,90,.15);
+}
+
+/* =========================
+   BUTTON
+========================= */
+.submit-button{
     width:100%;
-
-    max-width:500px;
-
-    padding:18px;
-
-    margin-top:20px;
-
-    font-size:24px;
-
-    font-weight:bold;
 
     border:none;
 
+    padding:16px;
+
     border-radius:15px;
 
-    background:#0066cc;
+    background:var(--primary-green);
 
     color:white;
 
+    font-size:1.1rem;
+
+    font-weight:bold;
+
     cursor:pointer;
 
-    transition:0.3s;
-}
-
-button:hover{
-
-    background:#0052a3;
-
-    transform:scale(1.02);
-}
-
-/* Khu tìm kiếm */
-#searchArea{
+    transition:.2s;
 
     display:flex;
-    flex-direction:column;
+
+    justify-content:center;
+
     align-items:center;
-
-    margin-top:20px;
 }
 
-/* QR */
-#qrImage{
-
-    display:none;
-
-    margin:30px auto;
-
-    width:100%;
-    max-width:450px;
-
-    background:white;
-
-    padding:12px;
-
-    border-radius:15px;
-
-    box-shadow:0 4px 15px rgba(0,0,0,0.2);
+.submit-button:hover{
+    background:var(--primary-green-dark);
 }
 
-/* Tiêu đề QR */
-#cardTitle{
-
-    margin-top:25px;
-
-    font-size:30px;
-
-    font-weight:bold;
+.submit-button:active{
+    transform:scale(.98);
 }
 
-/* Lỗi */
+.arrow-icon{
+    margin-left:8px;
+    font-size:1.2rem;
+}
+
+/* =========================
+   ERROR
+========================= */
 #error{
-
     color:red;
 
-    font-size:18px;
+    text-align:center;
 
-    font-weight:bold;
+    font-size:.9rem;
 
-    margin-top:15px;
+    margin-top:12px;
 }
 
-/* Mobile */
+/* =========================
+   QR
+========================= */
+.qr-result-container{
+    text-align:center;
+
+    margin-top:25px;
+}
+
+.qr-wrapper{
+    background:white;
+
+    padding:15px;
+
+    border-radius:20px;
+
+    display:inline-block;
+
+    box-shadow:
+    0 4px 15px rgba(0,0,0,.15);
+}
+
+.main-qr-image{
+    width:220px;
+    max-width:80%;
+    height:auto;
+}
+
+#cardTitle{
+    margin-top:20px;
+
+    font-size:1.3rem;
+
+    font-weight:bold;
+}
+
+/* =========================
+   FOOTER
+========================= */
+.footer-panel{
+    position:fixed;
+
+    left:0;
+    bottom:0;
+
+    width:100%;
+
+    background:rgba(255,255,255,.92);
+
+    backdrop-filter:blur(8px);
+
+    border-top:1px solid #ddd;
+
+    box-shadow:
+    0 -3px 15px rgba(0,0,0,.1);
+
+    padding:12px 0;
+
+    z-index:100;
+}
+
+.footer-items{
+    display:flex;
+
+    justify-content:space-around;
+
+    align-items:center;
+}
+
+.footer-item{
+    text-align:center;
+
+    font-size:.8rem;
+
+    color:var(--text-dark);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
 @media(max-width:768px){
 
-    h1{
-        font-size:32px;
+    .panel{
+        margin:12px;
+        padding:20px;
     }
 
-    h2{
-        font-size:28px;
+    .page-title h1{
+        font-size:1.7rem;
     }
 
-    input,
-    button{
-
-        font-size:20px;
-        padding:15px;
+    .panel-header h2{
+        font-size:1.3rem;
     }
 
-    #qrImage{
-        max-width:300px;
+    .main-qr-image{
+        width:180px;
+    }
+}
+
+@media(max-width:480px){
+
+    .page-title h1{
+        font-size:1.5rem;
+    }
+
+    .panel{
+        border-radius:20px;
+    }
+
+    input{
+        font-size:.95rem;
+    }
+
+    .submit-button{
+        font-size:1rem;
+    }
+
+    .footer-item{
+        font-size:.7rem;
     }
 }
