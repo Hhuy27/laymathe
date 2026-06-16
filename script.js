@@ -76,7 +76,7 @@ const employees = [
     { name: "NGUYEN TRAN CAM TIEN", qr: "qr/96.jpg" },
     { name: "NGUYEN VAN THANH", qr: "qr/97.jpg" },
     { name: "NONG BICH PHUONG", qr: "qr/98.jpg" },
-    { name: "PHAM BICH HA", qr: "qr/99.jpg" },
+    { name: "PHAM BICH HA", qr: "qr/299.jpg" },
     { name: "PHAM DUY HUNG", qr: "qr/100.jpg" },
     { name: "PHAM THI HANG", qr: "qr/101.jpg" },
     { name: "PHAM THI PHUONG LOAN", qr: "qr/102.jpg" },
