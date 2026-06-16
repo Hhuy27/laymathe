@@ -97,9 +97,9 @@
 
    <!-- ================= MAIN QR SCREEN ================= -->
 <div id="mainBox"
-     class="hidden w-full flex justify-center">
+     class="hidden w-full min-h-screen bg-[#e7edd4] flex justify-center p-4">
 
-    <div class="w-full max-w-md bg-[#fbf8f0] border-4 border-[#ddcca3] rounded-[32px] p-4 space-y-4 shadow-lg">
+    <div class="w-full max-w-md bg-[#fbf8f0] border-4 border-[#ddcca3] rounded-[32px] p-4 space-y-4">
 
         <h2 class="text-center font-bold text-xl text-[#4d3319]">
             TÌM NHÂN VIÊN
@@ -117,21 +117,44 @@
 
         <div id="employeeList" class="space-y-2"></div>
 
-        <div class="text-center">
-            <h3 id="employeeName" class="font-bold text-lg"></h3>
-
-            <img id="qrImage"
-                 class="mx-auto mt-3 hidden w-64 rounded-2xl shadow-xl">
-        </div>
+     
 
     </div>
-</div>
+    </div>
 
+    <!-- ================= QR POPUP (THÊM VÀO ĐÂY) ================= -->
+    <div id="qrWrapper"
+         class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
+
+        <div class="bg-white rounded-2xl p-4 w-full max-w-sm flex flex-col items-center">
+
+           <h3 id="employeeNamePopup" class="font-bold text-lg mb-3 text-center"></h3>
+
+            <img id="qrImage"
+                 class="w-full max-w-[280px] rounded-xl transition-transform duration-200"
+                 style="transform: scale(1);">
+
+            <!-- ZOOM BUTTON -->
+            <div class="flex gap-3 mt-4">
+                <button onclick="zoomIn()" class="px-3 py-2 bg-green-600 text-white rounded-lg">＋</button>
+                <button onclick="zoomOut()" class="px-3 py-2 bg-yellow-600 text-white rounded-lg">－</button>
+                <button onclick="resetZoom()" class="px-3 py-2 bg-blue-600 text-white rounded-lg">Reset</button>
+            </div>
+
+            <button onclick="backToSearch()"
+                    class="mt-4 px-4 py-2 bg-gray-700 text-white rounded-xl w-full">
+                Quay lại
+            </button>
+
+        </div>
+    </div>
+
+    <!-- ================= TOAST ================= -->
     <div id="toastBox" class="fixed top-5 left-1/2 transform -translate-x-1/2 bg-[#3e2713] border-4 border-[#bf814b] text-[#fff200] px-6 py-3 rounded-2xl shadow-2xl z-50 transition-all duration-300 ease-out translate-y-[-100px] opacity-0 pointer-events-none flex items-center space-x-2">
         <span id="toastIcon" class="text-xl">⭐</span>
         <span id="toastMessage" class="font-bold text-sm text-white"></span>
     </div>
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
