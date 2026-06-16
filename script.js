@@ -331,4 +331,4 @@ function handleImageError(img) {
         document.getElementById("svgFallback").classList.remove("hidden");
     }
 }
-    }
+    
