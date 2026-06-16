@@ -1,4 +1,4 @@
-const PASSWORD = "ksc";
+const PASSWORD = "sc";
 
 // ================= DATA =================
 const employees = [
@@ -136,6 +136,7 @@ const employees = [
 ];
 // ================= STATE =================
 let zoomLevel = 1;
+let startDistance = 0;
 
 // ================= LOGIN =================
 function login() {
@@ -163,15 +164,7 @@ function resetUI() {
     document.getElementById("qrWrapper").classList.add("hidden");
 }
 
-// ================= SEARCH MODE =================
-function showSearchMode() {
-    document.getElementById("searchInput").style.display = "block";
-    document.getElementById("employeeList").style.display = "block";
-
-    document.getElementById("qrWrapper").classList.add("hidden");
-}
-
-// ================= LIVE FILTER =================
+// ================= SEARCH =================
 function searchEmployee() {
 
     const key = document.getElementById("searchInput").value.trim().toLowerCase();
@@ -199,7 +192,7 @@ function searchEmployee() {
     `).join("");
 }
 
-// ================= SHOW QR POPUP =================
+// ================= SHOW QR =================
 function showQR(name, qr) {
 
     document.getElementById("employeeNamePopup").innerText = name;
@@ -214,7 +207,7 @@ function showQR(name, qr) {
     // show popup
     document.getElementById("qrWrapper").classList.remove("hidden");
 
-    // hide search UI
+    // hide search
     document.getElementById("searchInput").style.display = "none";
     document.getElementById("employeeList").style.display = "none";
 
@@ -229,12 +222,11 @@ function backToSearch() {
     document.getElementById("searchInput").style.display = "block";
     document.getElementById("employeeList").style.display = "block";
 
-    // reset zoom luôn
     zoomLevel = 1;
     document.getElementById("qrImage").style.transform = "scale(1)";
 }
 
-// ================= ZOOM CONTROL =================
+// ================= ZOOM BUTTON =================
 function zoomIn() {
     const img = document.getElementById("qrImage");
 
@@ -258,6 +250,46 @@ function resetZoom() {
 
     zoomLevel = 1;
     img.style.transform = "scale(1)";
+}
+
+// ================= PINCH ZOOM (2 NGÓN TAY) =================
+const qrImage = document.getElementById("qrImage");
+
+if (qrImage) {
+
+    qrImage.addEventListener("touchstart", function (e) {
+        if (e.touches.length === 2) {
+            startDistance = getDistance(e.touches[0], e.touches[1]);
+        }
+    }, { passive: true });
+
+    qrImage.addEventListener("touchmove", function (e) {
+        if (e.touches.length === 2) {
+            e.preventDefault();
+
+            const currentDistance = getDistance(e.touches[0], e.touches[1]);
+
+            if (startDistance === 0) return;
+
+            let scaleChange = currentDistance / startDistance;
+
+            zoomLevel *= scaleChange;
+
+            if (zoomLevel < 1) zoomLevel = 1;
+            if (zoomLevel > 3) zoomLevel = 3;
+
+            qrImage.style.transform = `scale(${zoomLevel})`;
+
+            startDistance = currentDistance;
+        }
+    }, { passive: false });
+}
+
+// ================= DISTANCE FUNCTION =================
+function getDistance(t1, t2) {
+    const dx = t2.clientX - t1.clientX;
+    const dy = t2.clientY - t1.clientY;
+    return Math.sqrt(dx * dx + dy * dy);
 }
 
 // ================= TOAST =================
@@ -297,5 +329,7 @@ function handleImageError(img) {
     } else {
         img.style.display = "none";
         document.getElementById("svgFallback").classList.remove("hidden");
+    }
+}
     }
 }
