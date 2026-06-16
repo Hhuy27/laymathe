@@ -134,8 +134,11 @@ const employees = [
     { name: "", qr: "qr/109.jpg" },
     { name: "", qr: "qr/110.jpg" }
 ];
-function login() {
+// ================= STATE =================
+let zoomLevel = 1;
 
+// ================= LOGIN =================
+function login() {
     const pass = document.getElementById("password").value.trim();
 
     if (pass === PASSWORD) {
@@ -145,9 +148,6 @@ function login() {
 
         resetUI();
 
-        document.body.className =
-        "bg-[#e7edd4] min-h-screen flex justify-center items-start p-4";
-
         toast("Đăng nhập thành công!", "🎉");
 
     } else {
@@ -155,7 +155,23 @@ function login() {
     }
 }
 
-// ================= SEARCH =================
+// ================= RESET UI =================
+function resetUI() {
+    document.getElementById("searchInput").value = "";
+    document.getElementById("employeeList").innerHTML = "";
+
+    document.getElementById("qrWrapper").classList.add("hidden");
+}
+
+// ================= SEARCH MODE =================
+function showSearchMode() {
+    document.getElementById("searchInput").style.display = "block";
+    document.getElementById("employeeList").style.display = "block";
+
+    document.getElementById("qrWrapper").classList.add("hidden");
+}
+
+// ================= LIVE FILTER =================
 function searchEmployee() {
 
     const key = document.getElementById("searchInput").value.trim().toLowerCase();
@@ -167,7 +183,7 @@ function searchEmployee() {
     }
 
     const result = employees.filter(e =>
-        e.name && e.name.toLowerCase().includes(key)
+        e.name.toLowerCase().includes(key)
     );
 
     if (result.length === 0) {
@@ -183,76 +199,65 @@ function searchEmployee() {
     `).join("");
 }
 
-// ================= SHOW QR =================
+// ================= SHOW QR POPUP =================
 function showQR(name, qr) {
 
-    document.getElementById("employeeName").innerText = name;
+    document.getElementById("employeeNamePopup").innerText = name;
 
     const img = document.getElementById("qrImage");
-
     img.src = qr;
-    img.classList.remove("hidden");
 
+    // reset zoom
+    zoomLevel = 1;
+    img.style.transform = "scale(1)";
+
+    // show popup
+    document.getElementById("qrWrapper").classList.remove("hidden");
+
+    // hide search UI
     document.getElementById("searchInput").style.display = "none";
     document.getElementById("employeeList").style.display = "none";
-    document.getElementById("backBtn").classList.remove("hidden");
 
-    resetZoom();
-
-    toast("Hiển thị QR", "📌");
+    toast("Hiển thị QR: " + name, "📌");
 }
 
 // ================= BACK =================
 function backToSearch() {
 
-    resetUI();
-    toast("Quay lại tìm kiếm", "🔙");
-}
-
-// ================= RESET UI =================
-function resetUI() {
-
-    document.getElementById("searchInput").value = "";
+    document.getElementById("qrWrapper").classList.add("hidden");
 
     document.getElementById("searchInput").style.display = "block";
     document.getElementById("employeeList").style.display = "block";
-    document.getElementById("employeeList").innerHTML = "";
 
-    document.getElementById("qrImage").classList.add("hidden");
-    document.getElementById("employeeName").innerText = "";
-
-    document.getElementById("backBtn").classList.add("hidden");
-
-    resetZoom();
+    // reset zoom luôn
+    zoomLevel = 1;
+    document.getElementById("qrImage").style.transform = "scale(1)";
 }
 
-// ================= ZOOM QR =================
-let zoomed = false;
-
-function zoomQR() {
-
+// ================= ZOOM CONTROL =================
+function zoomIn() {
     const img = document.getElementById("qrImage");
 
-    if (!zoomed) {
-        img.style.transform = "scale(2)";
-        img.style.transition = "0.3s";
-        img.style.zIndex = "1000";
-        img.style.cursor = "zoom-out";
-        zoomed = true;
-    } else {
-        resetZoom();
-    }
+    zoomLevel += 0.2;
+    if (zoomLevel > 3) zoomLevel = 3;
+
+    img.style.transform = `scale(${zoomLevel})`;
+}
+
+function zoomOut() {
+    const img = document.getElementById("qrImage");
+
+    zoomLevel -= 0.2;
+    if (zoomLevel < 1) zoomLevel = 1;
+
+    img.style.transform = `scale(${zoomLevel})`;
 }
 
 function resetZoom() {
-
     const img = document.getElementById("qrImage");
 
+    zoomLevel = 1;
     img.style.transform = "scale(1)";
-    img.style.zIndex = "1";
-    img.style.cursor = "zoom-in";
-
-    zoomed = false;
 }
 
 // ================= TOAST =================
@@ -276,7 +281,6 @@ function toast(msg, icon = "⭐") {
 
 // ================= PASSWORD TOGGLE =================
 function togglePassword() {
-
     const p = document.getElementById("password");
     p.type = (p.type === "password") ? "text" : "password";
 }
