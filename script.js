@@ -140,43 +140,47 @@ let startDistance = 0;
 
 // ================= LOGIN =================
 function login() {
-    const pass = document.getElementById("password").value.trim();
+    const input = document.getElementById("password");
+    if (!input) return;
+
+    const pass = input.value.trim();
+
+    console.log("INPUT:", pass);
+    console.log("PASSWORD:", PASSWORD);
 
     if (pass === PASSWORD) {
-
         document.getElementById("loginBox").classList.add("hidden");
         document.getElementById("mainBox").classList.remove("hidden");
 
         resetUI();
-
         toast("Đăng nhập thành công!", "🎉");
-
     } else {
         toast("Sai mật khẩu!", "❌");
     }
 }
 
-// ================= RESET UI =================
+// ================= RESET =================
 function resetUI() {
     document.getElementById("searchInput").value = "";
     document.getElementById("employeeList").innerHTML = "";
 
     document.getElementById("qrWrapper").classList.add("hidden");
+    document.getElementById("searchInput").style.display = "block";
+    document.getElementById("employeeList").style.display = "block";
 }
 
 // ================= SEARCH =================
 function searchEmployee() {
-
     const key = document.getElementById("searchInput").value.trim().toLowerCase();
     const box = document.getElementById("employeeList");
 
-    if (key === "") {
+    if (!key) {
         box.innerHTML = "";
         return;
     }
 
     const result = employees.filter(e =>
-        e.name.toLowerCase().includes(key)
+        e.name && e.name.toLowerCase().includes(key)
     );
 
     if (result.length === 0) {
@@ -184,30 +188,34 @@ function searchEmployee() {
         return;
     }
 
-    box.innerHTML = result.map(e => `
-        <div onclick="showQR('${e.name}','${e.qr}')"
-             class="p-3 bg-green-500 text-white rounded-xl cursor-pointer hover:bg-green-700 transition">
+    box.innerHTML = result.map((e, index) => `
+        <div class="item bg-green-500 text-white p-3 rounded-xl cursor-pointer hover:bg-green-700 transition"
+             data-name="${e.name}"
+             data-qr="${e.qr}">
             ${e.name}
         </div>
     `).join("");
+
+    // click event (KHÔNG dùng onclick string)
+    box.onclick = (ev) => {
+        const item = ev.target.closest(".item");
+        if (!item) return;
+
+        showQR(item.dataset.name, item.dataset.qr);
+    };
 }
 
 // ================= SHOW QR =================
 function showQR(name, qr) {
-
     document.getElementById("employeeNamePopup").innerText = name;
 
     const img = document.getElementById("qrImage");
     img.src = qr;
 
-    // reset zoom
     zoomLevel = 1;
     img.style.transform = "scale(1)";
 
-    // show popup
     document.getElementById("qrWrapper").classList.remove("hidden");
-
-    // hide search
     document.getElementById("searchInput").style.display = "none";
     document.getElementById("employeeList").style.display = "none";
 
@@ -216,76 +224,67 @@ function showQR(name, qr) {
 
 // ================= BACK =================
 function backToSearch() {
-
     document.getElementById("qrWrapper").classList.add("hidden");
 
     document.getElementById("searchInput").style.display = "block";
     document.getElementById("employeeList").style.display = "block";
 
-    zoomLevel = 1;
-    document.getElementById("qrImage").style.transform = "scale(1)";
+    document.getElementById("employeeList").innerHTML = "";
+
+    resetZoom();
 }
 
-// ================= ZOOM BUTTON =================
+// ================= ZOOM =================
 function zoomIn() {
-    const img = document.getElementById("qrImage");
-
-    zoomLevel += 0.2;
-    if (zoomLevel > 3) zoomLevel = 3;
-
-    img.style.transform = `scale(${zoomLevel})`;
+    zoomLevel = Math.min(zoomLevel + 0.2, 3);
+    updateZoom();
 }
 
 function zoomOut() {
-    const img = document.getElementById("qrImage");
-
-    zoomLevel -= 0.2;
-    if (zoomLevel < 1) zoomLevel = 1;
-
-    img.style.transform = `scale(${zoomLevel})`;
+    zoomLevel = Math.max(zoomLevel - 0.2, 1);
+    updateZoom();
 }
 
 function resetZoom() {
-    const img = document.getElementById("qrImage");
-
     zoomLevel = 1;
-    img.style.transform = "scale(1)";
+    updateZoom();
 }
 
-// ================= PINCH ZOOM (2 NGÓN TAY) =================
-const qrImage = document.getElementById("qrImage");
+function updateZoom() {
+    const img = document.getElementById("qrImage");
+    if (img) img.style.transform = `scale(${zoomLevel})`;
+}
 
-if (qrImage) {
+// ================= PINCH ZOOM =================
+document.addEventListener("DOMContentLoaded", () => {
+    const qrImage = document.getElementById("qrImage");
+    if (!qrImage) return;
 
-    qrImage.addEventListener("touchstart", function (e) {
+    qrImage.addEventListener("touchstart", (e) => {
         if (e.touches.length === 2) {
             startDistance = getDistance(e.touches[0], e.touches[1]);
         }
     }, { passive: true });
 
-    qrImage.addEventListener("touchmove", function (e) {
+    qrImage.addEventListener("touchmove", (e) => {
         if (e.touches.length === 2) {
             e.preventDefault();
 
             const currentDistance = getDistance(e.touches[0], e.touches[1]);
-
-            if (startDistance === 0) return;
+            if (!startDistance) return;
 
             let scaleChange = currentDistance / startDistance;
 
-            zoomLevel *= scaleChange;
+            zoomLevel += (scaleChange - 1) * 0.5;
+            zoomLevel = Math.max(1, Math.min(zoomLevel, 3));
 
-            if (zoomLevel < 1) zoomLevel = 1;
-            if (zoomLevel > 3) zoomLevel = 3;
-
-            qrImage.style.transform = `scale(${zoomLevel})`;
-
+            updateZoom();
             startDistance = currentDistance;
         }
     }, { passive: false });
-}
+});
 
-// ================= DISTANCE FUNCTION =================
+// ================= DISTANCE =================
 function getDistance(t1, t2) {
     const dx = t2.clientX - t1.clientX;
     const dy = t2.clientY - t1.clientY;
@@ -294,10 +293,11 @@ function getDistance(t1, t2) {
 
 // ================= TOAST =================
 function toast(msg, icon = "⭐") {
-
     const box = document.getElementById("toastBox");
     const text = document.getElementById("toastMessage");
     const ico = document.getElementById("toastIcon");
+
+    if (!box || !text || !ico) return;
 
     text.innerText = msg;
     ico.innerText = icon;
@@ -314,21 +314,23 @@ function toast(msg, icon = "⭐") {
 // ================= PASSWORD TOGGLE =================
 function togglePassword() {
     const p = document.getElementById("password");
+    if (!p) return;
+
     p.type = (p.type === "password") ? "text" : "password";
 }
 
 // ================= IMAGE ERROR =================
-let attempt = 0;
-
 function handleImageError(img) {
-
+    let attempt = img.dataset.attempt || 0;
     attempt++;
+    img.dataset.attempt = attempt;
 
-    if (attempt === 1) {
+    if (attempt == 1) {
         img.src = "anh37.png";
     } else {
         img.style.display = "none";
-        document.getElementById("svgFallback").classList.remove("hidden");
+
+        const svg = document.getElementById("svgFallback");
+        if (svg) svg.classList.remove("hidden");
     }
 }
-    
